@@ -15,14 +15,22 @@
     <meta name="twitter:description" content="some short description of the page">
     <meta property="og:description" content="some short description of the page" >
     <meta property="og:url" content="https://thisPageURL.com" >
-    <!-- /Social media meta stuff -->
 
     <script jm-name="global-css">include('modules/global-css.html', 'global-css')</script>
 
 </head>
 
 <body>
-    <script jm-name="main-nav">include('modules/main-nav.html', 'main-nav')</script>
-    <h1>hello world</h1>
+    <!-- Above the fold -->
+    <script jm-name="header">include('modules/frantic/header.html', 'header')</script>
+    <script jm-name="homepage-hero">include('modules/frantic/homepage-hero.html', 'homepage-hero')</script>
+    <script jm-name="remote-office">include('modules/frantic/remote-office.html', 'remote-office')</script>
+
+    <!-- Can be lazyloaded -->
+    <script jm-lazy jm-name="posts" jm-data="data/post-exerts.json">include('modules/frantic/posts.html', 'posts')</script>
+    <script jm-lazy jm-name="f20">include('modules/frantic/f20.html', 'f20')</script>
+    <script jm-lazy jm-name="newsletter">include('modules/frantic/newsletter.html', 'newsletter')</script>
+    <script jm-lazy jm-name="footer">include('modules/frantic/footer.html', 'footer')</script>
+
 </body>
 </html>

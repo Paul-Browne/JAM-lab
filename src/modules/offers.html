@@ -1,0 +1,27 @@
+<style>
+.profile_wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile{
+    margin: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding: 1em;
+}
+
+p {
+    margin-top: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+</style>
+<section class="profile_wrapper">
+    {{~it.arr :value:i}}
+    <script jm-name="profile-{{=i}}" >include('modules/profile.html', 'profile-{{=i}}')</script>
+    {{~}}
+</section>
+

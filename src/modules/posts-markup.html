@@ -1,0 +1,56 @@
+{{~it.post :value:i}}
+<!--
+<script>
+    var style = document.createElement("style");
+    document.head.appendChild(style);
+    style.sheet.insertRule(".post-{{=value.id}}:before { background-image: url(https://picsum.photos/1200/300/?image={{=value.main_image}})}");
+</script>
+-->
+
+<div style="margin: 0 1rem;">
+    <div class="hero_bg post-{{=value.id}}">
+        <h1 class="title" style="background-image: url(https://picsum.photos/1200/300/?image={{=value.main_image}})">{{=value.title}}</h1>
+    </div>
+    <p><small>{{=value.author}}</small> &middot; <small>{{=value.date}}</small></p>
+    <h3>{{=value.sub_title}}</h3>
+    <p>{{=value.content.p1}}</p>
+    <p>{{=value.content.p2}}</p>
+    <p>{{=value.content.p3}}</p>
+</div>
+{{~}}
+
+
+<script type="text/javascript">
+    var bob = document.getElementById("bob");
+    var string = bob.innerHTML;
+    bob.innerHTML = "";
+    string.split("");
+    var i = 0, length = string.length;
+    for (i; i < length; i++) {
+        bob.innerHTML += "<span>" + string[i] + "</span>";
+    }
+    var spans = bob.querySelectorAll("span");
+
+
+    function getMiddleY(el){
+      return (el.getBoundingClientRect().top + (el.getBoundingClientRect().bottom - el.getBoundingClientRect().top)/2);
+    }
+
+
+    function getMiddleX(el){
+      return (el.getBoundingClientRect().left + (el.getBoundingClientRect().right - el.getBoundingClientRect().left)/2);
+    }
+
+    var mouse = document.getElementById("mouse");
+    var mid = document.getElementById("mid");
+
+
+    window.addEventListener("mousemove", function(e){
+      var j = spans.length;
+      while(j--){
+        spans[j].style.textShadow = (getMiddleX(spans[j])-e.clientX)/20 + "px "+ (getMiddleY(spans[j])-e.clientY)/20 +"px "+Math.sqrt( (getMiddleY(spans[j])-e.clientY)*(getMiddleY(spans[j])-e.clientY) + (getMiddleX(spans[j])-e.clientX)*(getMiddleX(spans[j])-e.clientX) )  /20+"px #400";
+      }
+      mid.innerHTML = getMiddleY(spans[4]) + " " + Math.abs(getMiddleY(spans[4])-e.clientY)/20;
+      mouse.innerHTML = e.clientX + " " + e.clientY;
+    });
+</script>

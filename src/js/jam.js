@@ -35,7 +35,7 @@
         }
         while (i < j) {
             if (wW > arr[i]) {
-                //url = _url + "." + arr[i] + ".html";
+
                 var mime = _url.lastIndexOf('.');
                 var url = _url.substring(0, mime+1) + arr[i] + _url.substr(mime);
             }
@@ -230,6 +230,14 @@
         xmlhttp.send();
     }
 
+    function clickedOn (el) {
+        while (el) {
+            if (el.tagName === 'A') {
+                return el.href;
+            }
+            el = el.parentElement;
+        }
+    }
 
     /*
         var anchs = document.querySelectorAll("a");
@@ -250,15 +258,15 @@
 
 
     window.addEventListener("click", function(e) {
-        e.preventDefault();
-        e = e || window.event;
-        var targ = e.target || e.srcElement;
-        if (targ.href && targ.href.indexOf("#") == -1) {
+        var _this = clickedOn(e.target);
+        if (_this){
+            e.preventDefault();
+        }
+        if (_this && _this.indexOf("#") == -1) {
             //document.documentElement.classList.remove("loaded");
             //document.documentElement.classList.add("loading");
-            var page = targ.href;
-            fullReplace(page);
-            history.pushState(null, null, targ.href);
+            fullReplace(_this);
+            history.pushState(null, null, _this);
         }
     });
 

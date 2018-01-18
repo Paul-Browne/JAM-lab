@@ -1,0 +1,82 @@
+{{##def.post:
+<div class="post-{{=(i+1)}} {{? i % 2}}even{{??}}odd{{?}}">
+    <img src="{{=value.image}}">
+    <h1>{{=value.title}}</h1>
+    <p><b><small>{{=value.author}}</small> <small>{{=value.date}}</small></b></p>
+    <p>{{=value.exert}}</p>
+    <a class="btn" href="{{=value.href}}">READ MORE</a>
+</div>
+#}}
+
+
+<section class="post-wrapper">
+    <div class="left post">
+        {{~it.postExert :value:i}}
+        {{? i % 2}}
+        {{??}}
+        {{? i === 0}}
+        <div class="box"><p>HERE'S OUR TWO CENTS.</p></div>
+        {{?}}
+            {{#def.post}}
+        {{?}}
+        {{~}}
+    </div>
+    <div class="right post">
+        {{~it.postExert :value:i}}
+        {{? i % 2}}
+            {{#def.post}}
+        {{?}}
+        {{~}}
+    </div>
+</section>
+
+
+
+<style>
+    .post-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 1024px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.75rem;
+    }
+
+    .post {
+        width: calc(50% - 60px);
+        padding-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .post img {
+        width: 100%;
+    }
+
+    .post .btn {
+        align-self: flex-start;
+    }
+
+    .post h1 + p {
+        margin: 0;
+    }
+
+    .box {
+        border: 6px solid #000;
+        align-self: flex-end;
+        width: 200px;
+        height: 200px;
+        margin-right: -5rem;
+        margin-bottom: -5rem;
+        z-index: 0;
+        padding: 1.25rem;
+    }
+
+    .box p{
+        font-family: Montserrat,sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 1.375rem;
+        margin: 0;
+    }
+</style>
