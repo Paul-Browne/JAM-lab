@@ -58,6 +58,6 @@ typings/
 .env
 
 /dev
-/dist
+# /dist
 .DS_Store
 /ignore
