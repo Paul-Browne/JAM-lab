@@ -1,0 +1,27 @@
+<nav>
+    <ul class="d-f jc-fe lst-n p-0 m-0">
+        <li><a href="/">home</a></li>
+        <li><a href="contact">contact</a></li>
+        <li><a href="about">about</a></li>
+        <li><a href="blog">blog</a></li>
+    </ul>
+</nav>
+
+
+
+<style>
+    nav li {
+        padding: 0 1rem;
+        border-right: 2px solid #000;
+    }
+    nav li:last-child {
+        border-right: 0;
+    }    
+    nav li a {
+        color: #000;
+        font-family: "Open sans";
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+</style>

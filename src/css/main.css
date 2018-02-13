@@ -15,26 +15,3 @@ h1, h2, h3 {
 img {
     vertical-align: middle;
 }
-
-button, .btn {
-    background: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    line-height: 1;
-    border-radius: 0;
-    font-family: Montserrat,sans-serif;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.btn {
-    background-color: #0013ff;
-    padding: .875rem .875rem .75rem;
-    transition: background-color .3s cubic-bezier(.17,.67,.83,.67);
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #fff
-}

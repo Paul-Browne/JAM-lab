@@ -91,6 +91,7 @@
                 }
             }
             qwqw(_target, ps, offset, wH);
+
         } else if (_target.hasAttribute("jm-hash")) {
 
             _target.style.display = "none";
