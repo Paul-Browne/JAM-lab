@@ -7,36 +7,17 @@
 
 ! function() {
 
-    /* debounced resize event */
-    function debounce(func, wait) {
-        var timeout;
-        return function() {
-            var context = this;
-            var args = arguments;
-            var later = function() {
-                timeout = null;
-                func.apply(context, args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    function _request(url, callback){
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var res = xmlhttp.responseText;
-                callback(res);
+    function _request(targ, url){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = xhr.responseText;
+                bob(targ, res, url);
             }
         }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
-    }    
-
-    var debounceClassName = debounce(function() {
-        //document.documentElement.classList.add("loaded");
-    }, 100);
+        xhr.open("GET", url, true);
+        xhr.send();
+    }
 
     include = function(theUrl, target, arr) {
         var wW = window.innerWidth;
@@ -68,139 +49,49 @@
             var wH = window.innerHeight;
             var ps = _target.getBoundingClientRect().top - wH - offset;
 
-            function qwqw(targ, position, windowOffset, windowHeight) {
-                if (position <= 0) {
-                    var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-
-                            bob(targ, xmlhttp.responseText, url);
-
-                        }
+            if (ps <= 0) {
+                _request(_target, url);
+            } else {
+                function popo(){
+                    var newPS = _target.getBoundingClientRect().top - wH - offset;
+                    if (newPS <= 0) {
+                        window.removeEventListener("scroll", popo);
+                        _request(_target, url);
                     }
-                    xmlhttp.open("GET", url, true);
-                    xmlhttp.send();
-                } else {
-var popo = function(){
-    newPS = targ.getBoundingClientRect().top - windowHeight - windowOffset;
-    if (newPS <= 0) {
-        window.removeEventListener("scroll", popo);
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-
-                bob(targ, xmlhttp.responseText, url);
-
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send(); 
-    }   
-}
-window.addEventListener("scroll", popo);
-
-/* use better option than setTimeout */
-/* also remove this if lazyload has already happened */
-// setTimeout(function(){ 
-//     popo();
-// }, 1000);
-
-
-/*
-                    window.addEventListener("scroll", function vvv(e) {
-                        newPS = targ.getBoundingClientRect().top - windowHeight - windowOffset;
-                        if (newPS <= 0) {
-                            window.removeEventListener("scroll", vvv);
-                            var xmlhttp = new XMLHttpRequest();
-                            xmlhttp.onreadystatechange = function() {
-                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-
-                                    bob(targ, xmlhttp.responseText, url);
-
-                                }
-                            }
-                            xmlhttp.open("GET", url, true);
-                            xmlhttp.send();
-                        }
-                    })
-*/                    
-
                 }
+                window.addEventListener("scroll", popo);
             }
-            qwqw(_target, ps, offset, wH);
-
 
         } else if (_target.hasAttribute("jm-hash")) {
 
             _target.style.display = "none";
 
-            var _hash = _target.getAttribute("jm-name");
+            var _hash = _target.getAttribute("jm-name");        
 
             // get matching anchor
 
             var matchingAnchor = document.querySelectorAll("a[jm-hash=" + _hash + "]");
+
+            console.log(matchingAnchor);
             var _j = matchingAnchor.length;
             // attach listener
             while(_j--){
+                // TODO maybe redo the addEventListener stuff
+                console.log("hi");
                 matchingAnchor[_j].addEventListener("click", function xxx(e) {
-
-                    // remove event listener
-
-                    matchingAnchor[_j].removeEventListener("click", xxx);
-
-                    // load on click
-
-                    var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            bob(_target, xmlhttp.responseText, url, matchingAnchor[_j]);
-                        }
-                    }
-                    xmlhttp.open("GET", url, true);
-                    xmlhttp.send();
-
-
-                })  
-            }
-            /*
-            matchingAnchor.forEach(function(element) {
-                element.addEventListener("click", function xxx(e) {
-
-                    // remove event listener
-
-                    element.removeEventListener("click", xxx);
-
-                    // load on click
-
-                    var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            bob(_target, xmlhttp.responseText, url, element);
-                        }
-                    }
-                    xmlhttp.open("GET", url, true);
-                    xmlhttp.send();
-
-
+                    this.removeEventListener("click", xxx);
+                    _request(_target, url);
                 })
-            });
-            */
-
+                //matchingAnchor[_j].addEventListener("click", xxx);
+                // function xxx(){
+                //     matchingAnchor[_j].removeEventListener("click", xxx);
+                //     _request(_target, url);
+                // }
+                // matchingAnchor[_j].addEventListener("click", xxx);                  
+            }
 
         } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-                    bob(_target, xmlhttp.responseText, url);
-
-                }
-            }
-            xmlhttp.open("GET", url, true);
-            xmlhttp.send();
+            _request(_target, url);
         }
     }
 
@@ -210,14 +101,7 @@ window.addEventListener("scroll", popo);
         while(_k--){
             scripts[_k].classList.add('accounted');
         }
-        /*
-        scripts.forEach(function(element) {
-            element.classList.add('accounted');
-        });
-        */
     }
-
-
 
     function scriptAdd(youarell) {
         var addScripts = document.querySelectorAll("script:not(.accounted)");
@@ -228,51 +112,27 @@ window.addEventListener("scroll", popo);
            if (addScripts[_l].hasAttribute("src")) {
                newScript.setAttribute("src", addScripts[_l].getAttribute("src"));
            }
-           //newScript.setAttribute("data-jxy-injected-script-from", youarell);
            document.head.appendChild(newScript);
         }
-        /*
-        addScripts.forEach(function(element) {
-            var newScript = document.createElement("SCRIPT");
-            newScript.innerHTML = element.innerHTML;
-            if (element.hasAttribute("src")) {
-                newScript.setAttribute("src", element.getAttribute("src"));
-            }
-            //newScript.setAttribute("data-jxy-injected-script-from", youarell);
-            document.head.appendChild(newScript);
-        });
-        */
     }
 
-
-    function bob(outer, res, lru, eleme) {
+    function bob(outer, res, lru) {
         /* json data */
-
         if (outer.hasAttribute("jm-data")) {
 
             var jsonData = outer.getAttribute("jm-data");
             if (jsonData.indexOf("{") != -1) {
                 var dotted = doT.template(res);
                 res = dotted(JSON.parse(jsonData));
-                scriptCheck();
+                over(outer, lru, res);
 
-                outer.outerHTML = res;
-
-                scriptAdd(lru);
-                debounceClassName();
             } else {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                         var dotted = doT.template(res);
                         res = dotted(JSON.parse(xmlhttp.responseText));
-
-                        scriptCheck();
-
-                        outer.outerHTML = res;
-
-                        scriptAdd(lru);
-                        debounceClassName();
+                        over(outer, lru, res);
 
                     }
                 }
@@ -280,15 +140,14 @@ window.addEventListener("scroll", popo);
                 xmlhttp.send();
             }
         } else {
-
-            scriptCheck();
-
-            outer.outerHTML = res;
-
-            scriptAdd(lru);
-            debounceClassName();
+            over(outer, lru, res);
         }
+    }
 
+    function over(outer, lru, res){
+        scriptCheck();
+        outer.outerHTML = res;
+        scriptAdd(lru);
     }
 
     function fullReplace(theUrl) {
@@ -324,59 +183,19 @@ window.addEventListener("scroll", popo);
         }
     }
 
-    /*
-        var anchs = document.querySelectorAll("a");
-        anchs.forEach(function(ele) {
-            ele.addEventListener("click", function(e) {
-                e.preventDefault();
-                e = e || window.event;
-                var targ = e.target || e.srcElement;
-                if (targ.href && targ.href.indexOf("#") == -1) {
-                    var page = targ.href;
-                    fullReplace(page);
-                    history.pushState(null, null, targ.href);
-                }
-            })
-        })
-
-      */
-
-
     window.addEventListener("click", function(e) {
         var _this = clickedOn(e.target);
         if (_this){
             e.preventDefault();
         }
         if (_this && _this.indexOf("#") == -1) {
-            //document.documentElement.classList.remove("loaded");
-            //document.documentElement.classList.add("loading");
             fullReplace(_this);
             history.pushState(null, null, _this);
         }
     });
 
 
-
-    // turned off reload-on-resize for now
-
-    // function debouncedResize(a,b){
-    // return window.addEventListener("resize",function(){
-    //   clearTimeout(b),
-    //   b = setTimeout(a,250)
-    // }),a
-    // }
-    // debouncedResize(function(){
-    //     // TODO
-    //     // fullreplace only if a breakpoint is crossed
-    //     fullReplace(window.location.href);
-    // });
-
-
-    // back/forward button functionality
-
     window.addEventListener("popstate", function(e) {
-        //document.documentElement.classList.remove("loaded");
-        //document.documentElement.classList.add("loading");
         fullReplace(window.location.href);
     });
 
