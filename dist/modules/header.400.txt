@@ -1,9 +1,10 @@
-<nav>
+<nav class="d-f ai-c jc-sb p-1 h-6">
+    <img class="w-7" src="images/ewe.png" >
     <ul class="d-f jc-fe lst-n p-0 m-0">
-        <li><a href="/">home</a></li>
-        <li><a href="contact">contact</a></li>
-        <li><a href="about">about</a></li>
-        <li><a href="blog">blog</a></li>
+        <li><a href="/">every</a></li>
+        <li><a href="contact">single</a></li>
+        <li><a href="about">website</a></li>
+        <li><a href="blog">ever</a></li>
     </ul>
 </nav>
 

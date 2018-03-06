@@ -1,4 +1,60 @@
-<h1>some awesome content right here!!</h1>
-<h1>some awesome content right here!!</h1>
-<h1>some awesome content right here!!</h1>
-<h1>some awesome content right here!!</h1>
+<div class="hero">
+	<h1 class="m-1 hero-text main">EVERY WEBSITE EVER</h1>
+	<h2 class="hero-text m-1 mw-45 sub">Giant random background image that tells you nothing about the company but is still about 1 megabyte in size, probably also some kind of parallax scroll because reasons.</h2>
+	<button class="btn">click here!</button>
+</div>
+
+
+<style>
+	.hero {
+		background-image: url('images/2400/rob-bates-306647-unsplash.jpg');
+		background-attachment: fixed;
+		height: calc(100vh - 96px);
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+	.hero .hero-text {
+		font-family: "Open sans";
+		color: #fff;
+		text-align: center;
+	}
+	.hero .hero-text.main {
+		font-size: 65px;
+		font-weight: 700;
+	}
+	.hero .hero-text.sub {
+		font-size: 22px;
+		font-weight: 400;
+	}
+	.btn {
+		font-family: "Open sans";
+		font-weight: 700;
+		color: #fff;
+		text-transform: uppercase;
+		margin: 2rem;
+		font-size: 18px;
+		line-height: 1em;
+		padding: 1rem 1.5rem;
+		background: darkturquoise;
+		border: 0;
+		border-radius: 4px;
+	}
+</style>
+
+
+<script>
+	var hero = document.querySelector('.hero');
+	window.addEventListener("scroll", function(e){
+		hero.style.backgroundPositionY = -0.5*document.documentElement.scrollTop + "px";
+	})
+</script>
+
+
+
+
+
+

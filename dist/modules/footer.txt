@@ -1,19 +1,28 @@
-<footer>
-	<p>2018</p>
-	<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		<p>2018</p>
-		
-</footer>
+<div class="footer p-4">
+	<h2 class="hero-text m-1 mw-45 sub">This section is where you'll read footer the company. I could've fit the entire text content of this site in the hero section, but why would I do that? It's a lot more fun to make you scroll. I chose to make the background of this section match the color of the button in the hero, because I believe in visual consistancy, that, and hurting your eyes.</h2>
+	<div class="social">
+		<img src="images/Insta.svg">
+		<img src="images/F_icon.svg">
+		<img src="images/Twitter_Bird.svg">		
+	</div>
+</div>
+
+
+<style>
+	.footer {
+		background: #111;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+	.footer .hero-text {
+		font-family: "Open sans";
+		color: #fff;
+		text-align: center;
+		font-weight: 400;
+	}
+	.social img{
+		width: 36px;
+	}
+</style>
